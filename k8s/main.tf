@@ -5,21 +5,17 @@ provider "google" {
   # change this name to your project
   project = "${var.project}"
   region  = "${var.region}"
+  zone    = "${var.zone}"
 }
 
 resource "google_container_cluster" "k8s" {
   name               = "${var.cluster_name}"
-  location           = "${var.region}"
-  # we need 4 of these for the demo
-  initial_node_count =  "${var.node_count}"
+  location           = "${var.zone}"
+  
+  initial_node_count = "${var.node_count}"
 
   # this is going to be your project
   project = "${var.project}"
-
-  master_auth {
-    username = "${var.masterAuthUser}"
-    password = "${var.masterAuthPass}"
-  }
 
   node_config {
     oauth_scopes = [
@@ -36,7 +32,25 @@ resource "google_container_cluster" "k8s" {
     machine_type = "${var.machine_type}"
     tags = "${var.tags}"
   }
+
+  master_auth {
+    username = "${var.masterAuthUser}"
+    password = "${var.masterAuthPass}"
+  }
 }
+
+resource "google_container_node_pool" "primary_nodes" {
+  name       = "primary-node-pool"
+  location   = "${var.region}"
+  cluster    = "${google_container_cluster.k8s.name}"
+
+  # we need 4 of these for the demo
+  node_count = "${var.node_count}"
+
+  
+
+}
+
 
 # The following outputs allow authentication and connectivity to the GKE Cluster.
 output "client_certificate" {
