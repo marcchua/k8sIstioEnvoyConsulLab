@@ -1,37 +1,3 @@
-# add a default value that is at least 16 characters
-variable "masterAuthPass" {
-  type = "string"
-}
-
-variable "masterAuthUser" {
-  type = "string"
-}
-
-variable "serviceAccount" {
-  type = "string"
-}
-
-variable "project" {
-  type = "string"
-}
-
-variable "region" {
-  type = "string"
-}
-
-variable "zone" {
-  type = "string"
-}
-
-variable "cluster_name" {
-  type = "string"
-}
-
-variable "node_count" {
-  type = "string"
-  default = "4"
-}
-
 provider "google" {
   # OSS, so use this
   #credentials = "${file("/some/path/to/your/auth.json")}"
@@ -39,12 +5,11 @@ provider "google" {
   # change this name to your project
   project = "${var.project}"
   region  = "${var.region}"
-  zone    = "${var.zone}"
 }
 
 resource "google_container_cluster" "k8s" {
   name               = "${var.cluster_name}"
-  zone               = "${var.zone}"
+  location           = "${var.region}"
   # we need 4 of these for the demo
   initial_node_count =  "${var.node_count}"
 
@@ -68,7 +33,8 @@ resource "google_container_cluster" "k8s" {
       env = "sandbox"
     }
 
-    tags = ["k8s", "se-training", "sandbox"]
+    machine_type = "${var.machine_type}"
+    tags = "${var.tags}"
   }
 }
 
