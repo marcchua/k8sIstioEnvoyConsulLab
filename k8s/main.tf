@@ -39,19 +39,6 @@ resource "google_container_cluster" "k8s" {
   }
 }
 
-resource "google_container_node_pool" "primary_nodes" {
-  name       = "primary-node-pool"
-  location   = "${var.region}"
-  cluster    = "${google_container_cluster.k8s.name}"
-
-  # we need 4 of these for the demo
-  node_count = "${var.node_count}"
-
-  
-
-}
-
-
 # The following outputs allow authentication and connectivity to the GKE Cluster.
 output "client_certificate" {
   value = "${google_container_cluster.k8s.master_auth.0.client_certificate}"
