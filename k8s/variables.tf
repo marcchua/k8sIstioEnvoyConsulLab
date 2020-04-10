@@ -1,34 +1,34 @@
 # add a default value that is at least 16 characters
 variable "masterAuthPass" {
-  type = "string"
+  type = string
 }
 
 variable "masterAuthUser" {
-  type = "string"
+  type = string
 }
 
 variable "serviceAccount" {
-  type = "string"
+  type = string
 }
 
 variable "project" {
-  type = "string"
+  type = string
 }
 
 variable "region" {
-  type = "string"
+  type = string
 }
 
 variable "zone" {
-  type = "string"
+  type = string
 }
 
 variable "cluster_name" {
-  type = "string"
+  type = string
 }
 
 variable "node_count" {
-  type = "string"
+  type    = string
   default = "4"
 }
 
@@ -37,6 +37,7 @@ variable "machine_type" {
 }
 
 variable "tags" {
-  type = "list"
+  type    = list(string)
   default = ["k8s", "se-training", "sandbox"]
 }
+
