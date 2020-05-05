@@ -1,3 +1,4 @@
+project         = "n/a"
 masterAuthUser  = "admin"
 masterAuthPass  = "W@ar_%=J9Esav#*t"
 cluster_name    = "demo-cluster"
