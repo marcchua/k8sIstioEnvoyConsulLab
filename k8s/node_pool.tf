@@ -1,6 +1,6 @@
 /*
 resource "google_container_node_pool" "k8s_node_pool" {
-  name       = "${var.cluster_name}-node_pool"
+  name       = "${var.cluster_name}-node-pool"
   location   = var.zone
   cluster    = google_container_cluster.k8s.name
   node_count = 1
