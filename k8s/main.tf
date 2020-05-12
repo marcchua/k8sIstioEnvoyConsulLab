@@ -1,8 +1,4 @@
 provider "google" {
-  # OSS, so use this
-  #credentials = "${file("/some/path/to/your/auth.json")}"
-  #credentials = "${var.serviceAccount}"
-  # change this name to your project
   project = var.project
   region  = var.region
   zone    = var.zone
@@ -14,7 +10,6 @@ resource "google_container_cluster" "k8s" {
 
   initial_node_count = var.node_count
 
-  # this is going to be your project
   project = var.project
 
   node_config {
